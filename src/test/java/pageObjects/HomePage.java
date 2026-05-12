@@ -21,6 +21,12 @@ public class HomePage extends BasePage {
 	@FindBy(linkText = "Login")
 	private WebElement linkLogin;
 	
+	@FindBy(name = "search")
+	private WebElement searchInputTxt;
+	
+	@FindBy(xpath = "//input[@name='search']/following-sibling::span//button[@type='button']")
+	private WebElement searchBtn;
+	
 //	utilize
 	public void clickMyAccount() {
 		lnkMyAccount.click();
@@ -32,6 +38,14 @@ public class HomePage extends BasePage {
 	
 	public void clickLogin() {
 		linkLogin.click();
+	}
+	
+	public void setSearchText(String value) {
+		searchInputTxt.sendKeys(value);
+	}
+	
+	public void clickSearchBtn() {
+		searchBtn.click();
 	}
 
 }
