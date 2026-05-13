@@ -14,7 +14,7 @@ public class TC001_AccountRegistrationTest extends BaseClass{
 		logger.info("***** Starting TC001_AccountRegistrationTest *****");
 		
 		try {
-			HomePage hp = new HomePage(driver);
+			HomePage hp = new HomePage(getDriver());
 			
 			hp.clickMyAccount();
 			logger.info("Clicked on MyAccount Link...");
@@ -22,7 +22,7 @@ public class TC001_AccountRegistrationTest extends BaseClass{
 			hp.clickRegister();
 			logger.info("Clicked on Register Link...");
 			
-			AccountRegistrationPage regPage = new AccountRegistrationPage(driver);
+			AccountRegistrationPage regPage = new AccountRegistrationPage(getDriver());
 			
 			logger.info("Providing Customer Details...");		
 			regPage.setFirstName(randomString().toUpperCase());

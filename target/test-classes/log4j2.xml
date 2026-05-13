@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Configuration status="WARN">
+<Configuration status="INFO">
 
 <Properties>
 	<Property name="basePath">./logs</Property>
@@ -18,7 +18,7 @@
 </Appenders>
 
 <Loggers>
-	<Root level="Debug"><!-- Here you can use multiple log levels All < Trace < Debug < Info < Warn < Error < Fatal < Off -->
+	<Root level="Off"><!-- Here you can use multiple log levels All < Trace < Debug < Info < Warn < Error < Fatal < Off -->
 <!-- 	<AppenderRef ref="Console" /> -->
 		<AppenderRef ref="File" />	
 	</Root>

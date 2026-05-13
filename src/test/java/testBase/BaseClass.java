@@ -27,7 +27,7 @@ import org.testng.annotations.Parameters;
 
 public class BaseClass {
 	
-	public static WebDriver driver;
+	public static ThreadLocal<WebDriver> tdriver = new ThreadLocal<>();
 	public Logger logger; // Log4j
 	public Properties p;
 	
@@ -45,6 +45,8 @@ public class BaseClass {
 		
 		// Grid Setup
 		if(p.getProperty("execution_env").equalsIgnoreCase("remote")) {
+			
+			//to pass OS and BROWSER details
 			DesiredCapabilities capabilities = new DesiredCapabilities();
 			
 			//os
@@ -70,32 +72,34 @@ public class BaseClass {
 				System.out.println("No matching Browser!!!");
 				return;
 			}
-			 
-			driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), capabilities);
+			
+			// donot know on which browser we want to run our test i.e: RemoteWebDriveR
+			//TRIGGER GRID ENVIRONMENT
+			tdriver.set(new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), capabilities));
 		}
 		
 		if(p.getProperty("execution_env").equalsIgnoreCase("local")) {
 			if(browser.toLowerCase().equals("chrome")) {
-				driver = new ChromeDriver();			
+				tdriver.set(new ChromeDriver());			
 			} else if(browser.toLowerCase().equals("edge")) {
-				driver = new EdgeDriver();
+				tdriver.set(new EdgeDriver());
 			}else if(browser.toLowerCase().equals("firefox")) {
-				driver = new FirefoxDriver();
+				tdriver.set(new FirefoxDriver());
 			} else {
-				driver = new ChromeDriver();
+				tdriver.set(new ChromeDriver());
 			}			
 		}
 		
-		driver.manage().deleteAllCookies();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		getDriver().manage().deleteAllCookies();
+		getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		
-		driver.get(p.getProperty("appUrl"));
-		driver.manage().window().maximize();
+		getDriver().get(p.getProperty("appUrl"));
+		getDriver().manage().window().maximize();
 	}
 	
 	@AfterClass(groups = {"Sanity", "Regression", "Master", "Datadriven"})
 	public void tearDown() {
-		driver.quit();
+		getDriver().quit();
 	}
 	
 	public String randomString() {
@@ -117,7 +121,7 @@ public class BaseClass {
 
 		String timeStamp = new SimpleDateFormat("yyyy.MM.dd.hh.mm.ss").format(new Date());
 				
-		TakesScreenshot takesScreenshot = (TakesScreenshot) driver;
+		TakesScreenshot takesScreenshot = (TakesScreenshot) getDriver();
 		File sourceFile = takesScreenshot.getScreenshotAs(OutputType.FILE);
 		
 		String targetFilePath=System.getProperty("user.dir")+"\\screenshots\\" + tname + "_" + timeStamp + ".png";
@@ -127,5 +131,9 @@ public class BaseClass {
 			
 		return targetFilePath;
 
+	}
+	
+	public WebDriver getDriver() {
+	    return tdriver.get();
 	}
 }

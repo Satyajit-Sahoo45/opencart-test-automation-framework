@@ -15,21 +15,21 @@ public class TC004_SearchTest extends BaseClass {
 		logger.info("***** Starting TC004_SearchTest *****");
 		
 		try {
-			HomePage hp = new HomePage(driver);
+			HomePage hp = new HomePage(getDriver());
 			
 			hp.clickMyAccount();
 			hp.clickLogin();
 			
 			logger.info("Performing Login action...");
 			// Login
-			LoginPage lp = new LoginPage(driver);
+			LoginPage lp = new LoginPage(getDriver());
 			lp.setEmail(p.getProperty("email"));
 			lp.setPassword(p.getProperty("password"));
 			lp.clickLogin();
 			
 			logger.info("Validating MyAccount Page");
 			// MyAccount
-			MyAccountPage ap = new MyAccountPage(driver);
+			MyAccountPage ap = new MyAccountPage(getDriver());
 			boolean targetPage = ap.isMyAccountPageExists();
 			
 			Assert.assertEquals(targetPage, true, "Login Failed!");

@@ -29,18 +29,18 @@ public class TC003_LoginDDT extends BaseClass{
 			logger.info("***** Starting TC003_LoginDDT *****");
 			
 			//HomePage
-			HomePage hp = new HomePage(driver);
+			HomePage hp = new HomePage(getDriver());
 			hp.clickMyAccount();
 			hp.clickLogin();
 			
 			//Login
-			LoginPage lp = new LoginPage(driver);
+			LoginPage lp = new LoginPage(getDriver());
 			lp.setEmail(email);
 			lp.setPassword(password);
 			lp.clickLogin();
 			
 			//MyAccount
-			MyAccountPage map = new MyAccountPage(driver);
+			MyAccountPage map = new MyAccountPage(getDriver());
 			boolean targetPage = map.isMyAccountPageExists();
 			
 			 /*
