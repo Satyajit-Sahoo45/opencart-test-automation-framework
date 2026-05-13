@@ -18,9 +18,9 @@
   </test> <!-- Test -->
   
   
-  <test name="edgetest">
+  <test name="firefoxtest">
     <parameter name="os" value="Windows"/>
-    <parameter name="browser" value="edge"/>
+    <parameter name="browser" value="firefox"/>
      
     <classes>
       <class name="testCases.TC001_AccountRegistrationTest"/>
